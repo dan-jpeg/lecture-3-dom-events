@@ -53,17 +53,59 @@ const foods = [
 
 const restaurantMenu = document.getElementById('restaurant-menu')
 
-for(let index = 0; index < foods.length; index++){
+function addFoodImageToMenu(food) {
     const image = document.createElement('img')
-    image.src = foods[index].image
+    image.src = food.image
+    image.addEventListener('click', (e) => {
+        displayFoodDetails(food)
+    })
     restaurantMenu.appendChild(image)
 }
 
-const foodDetailImage = document.querySelector('.detail-image')
-foodDetailImage.src = foods[0].image
 
-const foodName = document.querySelector('.name') 
-foodName.textContent = foods[0].name
+function displayFoodDetails(food) {
+    const foodDetailImage = document.querySelector('.detail-image')
+        foodDetailImage.src = food.image
 
-const foodDescription = document.querySelector(`#description-display`)
-foodDescription.textContent = foods[0].description
+        const foodName = document.querySelector('.name') 
+        foodName.textContent = food.name
+
+        const foodDescription = document.querySelector(`#description-display`)
+        foodDescription.textContent = food.description
+}
+
+// for(let index = 0; i < foods.length; index++) {
+//     addFoodImageToMenu(foods[index])
+// }
+
+foods.forEach(food => {
+    addFoodImageToMenu(food)
+})
+
+displayFoodDetails(foods[0]); 
+
+const newFoodForm = document.getElementById('new-food')
+console.log(newFoodForm)
+newFoodForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const foodNameValue = document.getElementById('new-name').value
+    const imageLinkValue = document.getElementById('new-image').value
+    const descriptionValue = document.getElementById('new-description').value
+    
+    const newFood = {
+                    name: foodNameValue, 
+                    image: imageLinkValue, 
+                    description: descriptionValue
+                    }           
+    addFoodImageToMenu(newFood);
+})
+
+
+// const foodDetailImage = document.querySelector('.detail-image')
+// foodDetailImage.src = foods[0].image
+
+// const foodName = document.querySelector('.name') 
+// foodName.textContent = foods[0].name
+
+// const foodDescription = document.querySelector(`#description-display`)
+// foodDescription.textContent = foods[0].description
